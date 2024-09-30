@@ -1,5 +1,7 @@
 
 import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -8,20 +10,31 @@ import 'package:mindos_2/profileScreen.dart';
 import 'package:mindos_2/provider/mainProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import 'ReportScreen.dart';
 import 'api/apis.dart';
 import 'contWithGoogle.dart';
 import 'models/ChatUser.dart';
 
 class ChatPage extends StatefulWidget {
 
-  ChatPage({super.key});
+  // final ChatUser user;
+  ChatPage({super.key,});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
+
+  // Future<void> sendMessage(String message) async {
+  //   await APIs().saveChatData(message);
+  //
+  // }
+  // List<String> messages = [];
+
+
   List<ChatUser> list = [];
 
   final Gemini gemini = Gemini.instance;
@@ -57,31 +70,30 @@ class _ChatPageState extends State<ChatPage> {
           Row(
             children: [
 
-
-              Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Action for the button
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white, // Button background color
-                    foregroundColor: Colors.blue, // Button text color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20), // Rounded corners
-                    ),
-                  ),
-                  child: Text('PowerBI'),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(right: 5),
+              //   child: ElevatedButton(
+              //     onPressed: (){
+              //
+              //     },
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: Colors.white, // Button background color
+              //       foregroundColor: Colors.blue, // Button text color
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(20), // Rounded corners
+              //       ),
+              //     ),
+              //     child: Text('PowerBI'),
+              //   ),
+              // ),
 
               IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(
-                            builder: (_) => profileScreen(
-                              // user: APIs.me,
-                            )));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(
+                    //         builder: (_) => profileScreen(
+                    //           // user: APIs.me,
+                    //         )));
                   },
                   icon: const Icon(Icons.more_vert,color: Colors.white,)),
             ],
@@ -272,4 +284,17 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
+
+
+
+
+// void launchURL() async {
+  //   const url = 'https://app.powerbi.com/home?redirectedFromSignup=1&experience=power-bi';
+  //
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 }

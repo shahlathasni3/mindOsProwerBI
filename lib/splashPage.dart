@@ -25,6 +25,9 @@ class _splashPageState extends State<splashPage> {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => contWithGoogle()));
+
+
       if(APIs.auth.currentUser != null){
         log('\nUser: ${APIs.auth.currentUser}');
         // navigate home screen

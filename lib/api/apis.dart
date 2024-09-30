@@ -1,7 +1,6 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/ChatUser.dart';
 
@@ -39,4 +38,10 @@ class APIs {
     );
     return await firestore.collection('users').doc(user.uid).set(chatUser.toJson());
   }
-  }
+
+
+
+
+}
+
+

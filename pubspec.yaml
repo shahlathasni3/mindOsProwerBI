@@ -49,16 +49,20 @@ dependencies:
   # for picking images
   image_picker: ^1.1.2
   # for showing network images
-  cached_network_image: ^3.3.1
+  cached_network_image: ^3.4.1
   # For WebView to display Power BI
   flutter_webview_plugin: ^0.4.0
   # For making HTTP requests to get the embed token
   http: ^1.2.2
+  # url launcher for go to website
+  url_launcher: ^6.3.0
+  webview_flutter_wkwebview: ^3.15.0
   # for accessing firebase storage for uploading files
 #  firebase_storage: ^12.2.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  firebase_analytics: ^11.3.3
 
 
 

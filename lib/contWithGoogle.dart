@@ -31,7 +31,15 @@ class _contWithGoogleState extends State<contWithGoogle> {
         log('\nUser: ${user.user}');
         log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+        if((await APIs.userExists())){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+        }else{
+          await APIs.createUser().then((value){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+          });
+        }
+
+
       }
 
     });

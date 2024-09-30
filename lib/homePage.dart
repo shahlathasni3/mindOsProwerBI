@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mindos_2/api/apis.dart';
+import 'package:mindos_2/contWithGoogle.dart';
 import 'package:mindos_2/models/ChatUser.dart';
 
+import 'ReportScreen.dart';
 import 'chat_user_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,7 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(CupertinoIcons.home),
+        leading: InkWell(onTap : (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> contWithGoogle()));
+          },child: const Icon(CupertinoIcons.home)),
         title: Text("mindOs",style: TextStyle(
                   color: Colors.blueAccent, // Text color
                   fontSize: 21,
@@ -34,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(right: 5),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Action for the button
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => UserReportScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue, // Button background color
@@ -47,6 +52,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
         ),
         ],
+      ),
+
+      // floating button to add new user
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(right: 15, bottom: 15),
+        child: FloatingActionButton(
+          onPressed: () async {
+            await APIs.auth.signOut();
+            await GoogleSignIn().signOut();
+          },
+          child: const Icon(Icons.add_comment_rounded),
+        ),
       ),
       body: StreamBuilder(
         stream: APIs.firestore.collection('users').snapshots(),

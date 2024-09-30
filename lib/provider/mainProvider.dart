@@ -6,6 +6,10 @@ class MainProvider extends ChangeNotifier{
   String streamAnswer = '';
   final Gemini gemini = Gemini.instance;
   final TextEditingController controller = TextEditingController();
+
+
+
+
   // integrate gemin
   void geminiStream(String text) async {
     controller.clear();
@@ -19,6 +23,14 @@ class MainProvider extends ChangeNotifier{
     }
     notifyListeners();
   }
+
+
+
+
+
+
+
+
 
   // Future<DocumentSnapshot> fetchUserDetails(String uid) async {
   //   return await FirebaseFirestore.instance.collection('users').doc(uid).get();
