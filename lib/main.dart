@@ -12,6 +12,7 @@ import 'firebase_options.dart';
 late Size mq;
 
 void main() {
+  
   // integrate Gemini with API
   Gemini.init(apiKey: "AIzaSyCJoM-BbHlnwrf4V8fECEjFSC1cabHyErU");
   WidgetsFlutterBinding.ensureInitialized();

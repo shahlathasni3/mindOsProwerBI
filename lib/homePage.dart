@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mindos_2/api/apis.dart';
 import 'package:mindos_2/contWithGoogle.dart';
 import 'package:mindos_2/models/ChatUser.dart';
+import 'package:mindos_2/reports/PowerBIReportScreen.dart';
 
 import 'ReportScreen.dart';
 import 'chat_user_card.dart';
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(right: 5),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => UserReportScreen()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => PowerBIReportButton()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue, // Button background color

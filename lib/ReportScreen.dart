@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mindos_2/homePage.dart';
 
 import 'models/ChatUser.dart';
 
-class UserReportScreen extends StatelessWidget {
+class UserReportScreen extends StatefulWidget {
+  @override
+  State<UserReportScreen> createState() => _UserReportScreenState();
+}
+
+class _UserReportScreenState extends State<UserReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("User Report")),
+      appBar: AppBar(
+          leading: InkWell(
+              onTap: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+              },
+              child: Icon(Icons.arrow_back)),
+          title: Text("User Report")
+
+      ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

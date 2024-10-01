@@ -39,6 +39,7 @@ class _ChatPageState extends State<ChatPage> {
 
   final Gemini gemini = Gemini.instance;
 
+
   @override
   Widget build(BuildContext context) {
     // Define mq as MediaQuery
@@ -89,11 +90,12 @@ class _ChatPageState extends State<ChatPage> {
 
               IconButton(
                   onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => profileScreen()));
                     // Navigator.push(context,
-                    //     MaterialPageRoute(
-                    //         builder: (_) => profileScreen(
-                    //           // user: APIs.me,
-                    //         )));
+                        // MaterialPageRoute(
+                        //     builder: (_) => profileScreen(
+                        //       user: APIs.me,
+                        //     )));
                   },
                   icon: const Icon(Icons.more_vert,color: Colors.white,)),
             ],
@@ -254,9 +256,24 @@ class _ChatPageState extends State<ChatPage> {
                     builder: (context,value10,child) {
                       return InkWell(
 
-                        onTap: () {
-                          value10.geminiStream(value120.controller.text);
+                        onTap: () async {
+                          // value10.geminiStream(value120.controller.text);
+
+                          // Get the message from the TextField
+                          final message = value120.controller.text.trim();
+
+                          if (message.isNotEmpty) {
+                            // Save the chat data to Firestore
+                            await APIs().saveChatData(message);
+
+                            // Clear the TextField after sending
+                            value120.controller.clear();
+
+                            // Call the Gemini stream function to get a response
+                            value10.geminiStream(message);
+                          }
                         },
+
                         child: Container(
                           height: mq.height * 0.06,
                           width: mq.width * 0.145,
@@ -283,18 +300,4 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
-
-
-
-
-
-// void launchURL() async {
-  //   const url = 'https://app.powerbi.com/home?redirectedFromSignup=1&experience=power-bi';
-  //
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
 }
