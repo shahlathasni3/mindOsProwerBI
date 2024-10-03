@@ -40,6 +40,7 @@ class _ChatPageState extends State<ChatPage> {
   final Gemini gemini = Gemini.instance;
 
 
+
   @override
   Widget build(BuildContext context) {
     // Define mq as MediaQuery
@@ -90,12 +91,7 @@ class _ChatPageState extends State<ChatPage> {
 
               IconButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => profileScreen()));
-                    // Navigator.push(context,
-                        // MaterialPageRoute(
-                        //     builder: (_) => profileScreen(
-                        //       user: APIs.me,
-                        //     )));
+                    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => profileScreen(user: APIs.me,)));
                   },
                   icon: const Icon(Icons.more_vert,color: Colors.white,)),
             ],

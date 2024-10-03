@@ -1,11 +1,13 @@
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:mindos_2/provider/mainProvider.dart';
 import 'package:mindos_2/splashPage.dart';
 import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 
 // global object for accessing device screen size

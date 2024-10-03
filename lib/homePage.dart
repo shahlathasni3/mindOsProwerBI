@@ -1,14 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mindos_2/api/apis.dart';
 import 'package:mindos_2/contWithGoogle.dart';
 import 'package:mindos_2/models/ChatUser.dart';
+import 'package:mindos_2/profileScreen.dart';
 import 'package:mindos_2/reports/PowerBIReportScreen.dart';
-
-import 'ReportScreen.dart';
 import 'chat_user_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,23 +32,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,// Font size
                 ),),
         actions: [
-          // PowerBI Button
-        Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: ElevatedButton(
+              // PowerBI Button
+              Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => PowerBIReportButton()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue, // Button background color
+                          foregroundColor: Colors.white, // Button text color
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), // Rounded corners
+                          ),
+                        ),
+                        child: Text('PowerBI'),
+                      ),
+              ),
+              IconButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => PowerBIReportButton()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => profileScreen(user: list[0])));
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, // Button background color
-                    foregroundColor: Colors.white, // Button text color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20), // Rounded corners
-                    ),
-                  ),
-                  child: Text('PowerBI'),
-                ),
-        ),
+                  icon: const Icon(Icons.more_vert,color: Colors.blue,)),
+
         ],
       ),
 
