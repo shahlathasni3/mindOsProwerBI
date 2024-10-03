@@ -32,16 +32,16 @@ class ChatUser {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['is_online'] = isOnline;
-    _data['id'] = id;
-    _data['created_at'] = createdAt;
-    _data['name'] = name;
-    _data['image'] = image;
-    _data['email'] = email;
-    _data['push_token'] = pushToken;
-    _data['about'] = about;
-    _data['last_active'] = lastActive;
-    return _data;
+    final data = <String, dynamic>{};
+    data['is_online'] = isOnline;
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['name'] = name;
+    data['image'] = image;
+    data['email'] = email;
+    data['push_token'] = pushToken;
+    data['about'] = about;
+    data['last_active'] = lastActive;
+    return data;
   }
 }

@@ -44,7 +44,8 @@ class APIs {
         createdAt: time,
         isOnline: false,
         lastActive: time,
-        pushToken:''
+        pushToken:'',
+      // totalDuration: 0,
     );
     return await firestore.collection('users').doc(user.uid).set(chatUser.toJson());
   }
@@ -80,6 +81,7 @@ class APIs {
     });
   }
 
-}
 
+
+}
 

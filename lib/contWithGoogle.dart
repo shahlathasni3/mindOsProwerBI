@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mindos_2/homePage.dart';
+import 'package:mindos_2/models/ChatUser.dart';
 import 'ChatPage.dart';
 import 'api/apis.dart';
 import 'helpers/dialogues.dart';
@@ -18,6 +19,7 @@ class contWithGoogle extends StatefulWidget {
 }
 
 class _contWithGoogleState extends State<contWithGoogle> {
+  DateTime? loginTime;
 
   // handles google login btn click
   handleGooglebtnClick(){
@@ -31,12 +33,14 @@ class _contWithGoogleState extends State<contWithGoogle> {
         log('\nUser: ${user.user}');
         log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
 
-        if((await APIs.userExists())){
+        // Record the login time
+        loginTime = DateTime.now(); // Initialize login time
+
+        if ((await APIs.userExists())) {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-        }else{
-          await APIs.createUser().then((value){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-          });
+        } else {
+          await APIs.createUser(); // Pass the user object to createUser
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
         }
 
 

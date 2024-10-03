@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               IconButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => profileScreen(user: list[0])));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => profileScreen(user: list[0],)));
                   },
                   icon: const Icon(Icons.more_vert,color: Colors.blue,)),
 
