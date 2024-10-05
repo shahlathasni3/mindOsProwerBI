@@ -9,7 +9,12 @@ class ChatUser {
     required this.pushToken,
     required this.about,
     required this.lastActive,
-  });
+    required this.loginTime,
+    required this.logoutTime,
+  }) {
+    totalDuration = _calculateDuration();
+  }
+
   late final bool isOnline;
   late final String id;
   late final String createdAt;
@@ -19,8 +24,12 @@ class ChatUser {
   late final String pushToken;
   late final String about;
   late final String lastActive;
-  ChatUser.fromJson(Map<String, dynamic> json){
-    isOnline = json['is_online'] ?? '';
+  late final String loginTime;
+  late final String logoutTime;
+  late final String totalDuration;
+
+  ChatUser.fromJson(Map<String, dynamic> json) {
+    isOnline = json['is_online'] ?? false;
     id = json['id'] ?? '';
     createdAt = json['created_at'] ?? '';
     name = json['name'] ?? '';
@@ -29,6 +38,9 @@ class ChatUser {
     pushToken = json['push_token'] ?? '';
     about = json['about'] ?? '';
     lastActive = json['last_active'] ?? '';
+    loginTime = json['login_time'] ?? '';
+    logoutTime = json['logout_time'] ?? '';
+    totalDuration = _calculateDuration();
   }
 
   Map<String, dynamic> toJson() {
@@ -42,6 +54,24 @@ class ChatUser {
     data['push_token'] = pushToken;
     data['about'] = about;
     data['last_active'] = lastActive;
+    data['login_time'] = loginTime;
+    data['logout_time'] = logoutTime;
+    data['total_duration'] = totalDuration;
     return data;
+  }
+
+  // Helper function to calculate total duration
+  String _calculateDuration() {
+    if (loginTime.isEmpty || logoutTime.isEmpty) return '0';
+
+    // Parsing the login and logout times
+    DateTime login = DateTime.parse(loginTime);
+    DateTime logout = DateTime.parse(logoutTime);
+
+    // Calculate the difference
+    Duration duration = logout.difference(login);
+
+    // Format the duration (hours, minutes, seconds)
+    return duration.toString();
   }
 }

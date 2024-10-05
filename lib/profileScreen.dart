@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -65,38 +64,38 @@ class _profileScreenState extends State<profileScreen> {
                 title: Text('Logout'),
                 content: Text('Are you sure you want to log out?'),
                 actions: <Widget>[
-                    TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                      child: Text('Cancel'),
-                    ),
-                    TextButton(
-                    onPressed: () => Navigator.of(context).pop(true),
-                    child: Text('Logout'),
-                    ),
-                ],
-            );
-        },
-            );
+                TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('Cancel'),
+                ),
+                TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: Text('Logout'),
+                ),
+            ],
+        );
+      },
+    );
 
-    // If the user confirms logout
-    if (confirm == true) {
-    Dialogues.showProgressBar(context);
-    // Sign out from the app
-    await APIs.auth.signOut().then((value) async {
-    await GoogleSignIn().signOut().then((value) {
-    // Hiding progress dialogue
-    Navigator.pop(context);
-    // Navigate to the login screen
-    Navigator.pushReplacement(context,
-    MaterialPageRoute(builder: (_) => contWithGoogle()));
-    });
-    });
-    }
-  },
-  icon: const Icon(Icons.logout, color: Colors.white),
-  label: Text('Logout', style: TextStyle(color: Colors.white)),
-  ),
-  ),
+      // If the user confirms logout
+      if (confirm == true) {
+         Dialogues.showProgressBar(context);
+        // Sign out from the app
+        await APIs.auth.signOut().then((value) async {
+        await GoogleSignIn().signOut().then((value) {
+        // Hiding progress dialogue
+        Navigator.pop(context);
+        // Navigate to the login screen
+        Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (_) => contWithGoogle()));
+        });
+        });
+      }
+    },
+        icon: const Icon(Icons.logout, color: Colors.white),
+        label: Text('Logout', style: TextStyle(color: Colors.white)),
+      ),
+    ),
 
       body: Column(
        children: [

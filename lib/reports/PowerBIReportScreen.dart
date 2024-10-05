@@ -30,7 +30,8 @@ import 'package:mindos_2/homePage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PowerBIReportButton extends StatelessWidget {
-  final String url = 'https://app.powerbi.com/reportEmbed?reportId=aac35aba-c3a4-46ff-98c8-f102486cbee7&autoAuth=true&ctid=a84203e7-39a7-4808-ae0e-b3ae884790d0';
+  // final String url = 'https://app.powerbi.com/reportEmbed?reportId=aac35aba-c3a4-46ff-98c8-f102486cbee7&autoAuth=true&ctid=a84203e7-39a7-4808-ae0e-b3ae884790d0';
+  final String url = 'https://app.powerbi.com/reportEmbed?reportId=76bc3d38-377e-4ea4-9e71-a28d70318b18&autoAuth=true&ctid=a84203e7-39a7-4808-ae0e-b3ae884790d0';
 
   void _launchURL() async {
     if (await canLaunch(url)) {
@@ -59,6 +60,4 @@ class PowerBIReportButton extends StatelessWidget {
     );
   }
 }
-
-
 
