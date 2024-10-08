@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:mindos_2/provider/mainProvider.dart';
+import 'package:mindos_2/provider/voiceProvider.dart';
 import 'package:mindos_2/splashPage.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MainProvider(),),
+        ChangeNotifierProvider(create: (context) => VoiceProvider(),)
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -31,6 +31,11 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toInteger()
+        targetSdkVersion localProperties.getProperty('flutter.targetSdkVersion').toInteger()
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+
     }
 
     buildTypes {
@@ -45,3 +50,5 @@ android {
 flutter {
     source = "../.."
 }
+
+

@@ -1,13 +1,34 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class MainProvider extends ChangeNotifier{
+class MainProvider extends ChangeNotifier {
+
+  MainProvider() {
+    flutterTts = ttsService.flutterTts;
+  }
+  final TTSService ttsService = TTSService();
+  late final FlutterTts flutterTts;
+  int amount = 0;
+  Timer? _timer;
   String streamAnswer = '';
   final Gemini gemini = Gemini.instance;
   final TextEditingController controller = TextEditingController();
 
 
+  // text-to-voice
+  Future<void> speak(String text) async {
+    if (text.isNotEmpty) {
+      try {
+        await flutterTts.speak(text);
+      } catch (e) {
+        print("Error occurred while trying to speak: $e");
+      }
+    }
+  }
 
 
   // integrate gemin
@@ -16,6 +37,7 @@ class MainProvider extends ChangeNotifier{
     try {
       await gemini.streamGenerateContent(text).forEach((event) {
         streamAnswer = event.output.toString();
+        speak(streamAnswer);
         notifyListeners();
       });
     } catch (error) {
@@ -24,27 +46,19 @@ class MainProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-
-
-
-
-
-
-
-
-  // Future<DocumentSnapshot> fetchUserDetails(String uid) async {
-  //   return await FirebaseFirestore.instance.collection('users').doc(uid).get();
-  // }
-  //
-  // void getUserInfo() async {
-  //   User? currentUser = FirebaseAuth.instance.currentUser;
-  //   if (currentUser != null) {
-  //     DocumentSnapshot userSnapshot = await fetchUserDetails(currentUser.uid);
-  //     Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
-  //     print("User details: ${userData}");
-  //   }
-  // }
-
-
 }
 
+// Audio text-to-speech service
+class TTSService {
+  final FlutterTts flutterTts;
+
+  TTSService() : flutterTts = FlutterTts() {
+    _initializeTts();
+  }
+
+  Future<void> _initializeTts() async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.5);
+  }
+}

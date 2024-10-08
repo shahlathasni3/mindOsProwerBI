@@ -1,25 +1,15 @@
-
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:mindos_2/homePage.dart';
-import 'package:mindos_2/profileScreen.dart';
 import 'package:mindos_2/provider/mainProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import 'ReportScreen.dart';
 import 'api/apis.dart';
-import 'contWithGoogle.dart';
 import 'models/ChatUser.dart';
 
 class ChatPage extends StatefulWidget {
-
-  // final ChatUser user;
   ChatPage({super.key,});
 
   @override
@@ -28,18 +18,8 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
 
-  // Future<void> sendMessage(String message) async {
-  //   await APIs().saveChatData(message);
-  //
-  // }
-  // List<String> messages = [];
-
-
   List<ChatUser> list = [];
-
   final Gemini gemini = Gemini.instance;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,24 +51,6 @@ class _ChatPageState extends State<ChatPage> {
           // PowerBI Button
           Row(
             children: [
-
-              // Padding(
-              //   padding: const EdgeInsets.only(right: 5),
-              //   child: ElevatedButton(
-              //     onPressed: (){
-              //
-              //     },
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: Colors.white, // Button background color
-              //       foregroundColor: Colors.blue, // Button text color
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(20), // Rounded corners
-              //       ),
-              //     ),
-              //     child: Text('PowerBI'),
-              //   ),
-              // ),
-
               IconButton(
                   onPressed: () {
                     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => profileScreen(user: APIs.me,)));
@@ -98,33 +60,31 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ],
       ),
-      body:StreamBuilder(
-        stream: APIs.firestore.collection('users').snapshots(),
-        builder:(context,snapshot) {
+      body:Consumer<MainProvider>(
+        builder: (context, value100, child) {
+          return StreamBuilder(
+            stream: APIs.firestore.collection('users').snapshots(),
+            builder:(context,snapshot) {
 
-          switch(snapshot.connectionState){
-            // if data is loading
-            case ConnectionState.waiting:
-            case ConnectionState.none:
-              return Center(child: CircularProgressIndicator(),);
-            // if some or all data is loaded then show it
-            case ConnectionState.active:
-            case ConnectionState.done:
+              switch(snapshot.connectionState){
+                // if data is loading
+                case ConnectionState.waiting:
+                case ConnectionState.none:
+                  return Center(child: CircularProgressIndicator(),);
+                // if some or all data is loaded then show it
+                case ConnectionState.active:
+                case ConnectionState.done:
 
-            // final list = [];
+                  final data = snapshot.data?.docs;
+                  for(var i in data!){
+                     print('Data: ${jsonEncode(i.data())}');
+                      // list.add(i.data()['name']);
+                  }
 
-              final data = snapshot.data?.docs;
-              for(var i in data!){
-                 print('Data: ${jsonEncode(i.data())}');
-                  // list.add(i.data()['name']);
-              }
-
-              return SingleChildScrollView(
-                  physics: ScrollPhysics(),
-                  child: Consumer<MainProvider>(
-                      builder: (context, val1, child) {
-                      return Container(
-                          height: mq.height,
+                  return SingleChildScrollView(
+                      physics: ScrollPhysics(),
+                      child: Container(
+                          height: mq.height * 1.5,
                           width: mq.width,
                           decoration: BoxDecoration(
                           color: Color(0xFFFCF7F7),
@@ -173,7 +133,7 @@ class _ChatPageState extends State<ChatPage> {
                                                   child: Column(
                                                       children: [
                                                           ReadMoreText(
-                                                              val1.streamAnswer,
+                                                            value100.streamAnswer,
                                                               style: TextStyle(
                                                                   color: Color(0xffffffff), fontSize: 15),
                                                                   trimLines: 3,
@@ -193,13 +153,13 @@ class _ChatPageState extends State<ChatPage> {
                                   ),
                               ],
                       ),
+                      ),
                       );
-                      }
-                  ),
-                  );
-              }
+                  }
 
 
+            }
+          );
         }
       ), // Add body content here
       bottomNavigationBar: Consumer<MainProvider>(
@@ -253,7 +213,7 @@ class _ChatPageState extends State<ChatPage> {
                       return InkWell(
 
                         onTap: () async {
-                          // value10.geminiStream(value120.controller.text);
+                          value10.geminiStream(value120.controller.text);
 
                           // Get the message from the TextField
                           final message = value120.controller.text.trim();
