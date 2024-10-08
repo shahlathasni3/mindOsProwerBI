@@ -213,7 +213,7 @@ class _ChatPageState extends State<ChatPage> {
                       return InkWell(
 
                         onTap: () async {
-                          value10.geminiStream(value120.controller.text);
+                          // value10.geminiStream(value120.controller.text);
 
                           // Get the message from the TextField
                           final message = value120.controller.text.trim();
@@ -226,7 +226,7 @@ class _ChatPageState extends State<ChatPage> {
                             value120.controller.clear();
 
                             // Call the Gemini stream function to get a response
-                            value10.geminiStream(message);
+                            value120.geminiStream(message);
                           }
                         },
 

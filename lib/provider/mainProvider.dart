@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -31,7 +32,7 @@ class MainProvider extends ChangeNotifier {
   }
 
 
-  // integrate gemin
+  // integrate gemini
   void geminiStream(String text) async {
     controller.clear();
     try {
@@ -62,3 +63,23 @@ class TTSService {
     await flutterTts.setSpeechRate(0.5);
   }
 }
+
+
+
+// add company specific data
+class FirestoreService {
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+
+  Future<void> addKnowledgeBaseEntry(String question, String answer) {
+    return db.collection('knowledge_base').add({
+      'question': question,
+      'answer': answer,
+    });
+  }
+
+  Future<List<Map<String, dynamic>>> getKnowledgeBase() async {
+    final snapshot = await db.collection('knowledge_base').get();
+    return snapshot.docs.map((doc) => doc.data()).toList();
+  }
+}
+
